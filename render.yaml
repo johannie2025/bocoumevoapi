@@ -4,8 +4,8 @@ services:
     env: docker
     plan: free
     region: frankfurt
-    # ICI : On charge directement l'image officielle sans compiler
-    image: atendai/evolution-api:latest
+    # Utilisation du nouveau dépôt officiel correct
+    image: evolutionapi/evolution-api:latest
     envVars:
       - key: SERVER_URL
         value: https://bocoumevoapi.onrender.com
@@ -18,8 +18,8 @@ services:
       - key: AUTHENTICATION_TYPE
         value: apikey
       - key: AUTHENTICATION_API_KEY
-        value: VotreCleSecreteSuperPuissante123! # Changez cette clé pour votre client
+        value: VotreCleSecreteSuperPuissante123!
       - key: NODE_ENV
         value: production
       - key: NODE_OPTIONS
-        value: --max-old-space-size=400 # Indispensable pour éviter que Render ne coupe l'application
+        value: --max-old-space-size=400
