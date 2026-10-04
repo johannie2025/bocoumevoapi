@@ -1,15 +1,16 @@
 services:
   - type: web
-    name: evolution-api-instance
+    name: bocoumevoapi
     env: docker
-    plan: free # Force l'utilisation du Free Tier (512 Mo RAM)
-    region: frankfurt # Choisissez la région la plus proche de votre client (oregon, frankfurt, etc.)
-    dockerfilePath: ./Dockerfile
+    plan: free
+    region: frankfurt
+    # ICI : On charge directement l'image officielle sans compiler
+    image: atendai/evolution-api:latest
     envVars:
       - key: SERVER_URL
-        sync: false # À remplacer par votre URL .onrender.com après le premier déploiement
+        value: https://bocoumevoapi.onrender.com
       - key: DATABASE_TYPE
-        value: sqlite # OBLIGATOIRE : Postgres consommerait trop de RAM pour le free tier
+        value: sqlite
       - key: DATABASE_CONNECTION_CLIENT
         value: sqlite3
       - key: DATABASE_CONNECTION_DATABASE
@@ -17,8 +18,8 @@ services:
       - key: AUTHENTICATION_TYPE
         value: apikey
       - key: AUTHENTICATION_API_KEY
-        value: VotreCleSecreteSuperPuissante123! # Changez cette clé !
+        value: VotreCleSecreteSuperPuissante123! # Changez cette clé pour votre client
       - key: NODE_ENV
         value: production
       - key: NODE_OPTIONS
-        value: --max-old-space-size=400 # Crucial : Empêche Node.js de dépasser 400 Mo de RAM (laissant 112 Mo pour l'OS)
+        value: --max-old-space-size=400 # Indispensable pour éviter que Render ne coupe l'application
